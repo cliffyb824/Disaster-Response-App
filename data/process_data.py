@@ -10,7 +10,7 @@ def load_data(messages_filepath, categories_filepath):
     categories_filepath(str) - the path of the categories .csv file
 
     OUTPUT:
-    df - dataframe of messages table and categories table merged on id
+    df(dataframe) - dataframe of messages table and categories table merged on id
     '''
     # load messages dataset
     messages = pd.read_csv(messages_filepath, encoding='utf-8')
@@ -23,10 +23,10 @@ def load_data(messages_filepath, categories_filepath):
 def clean_data(df):
     '''
     INPUT:
-    df - dataframe of messages table and categories table merged on id
+    df(dataframe) - dataframe of messages table and categories table merged on id
 
     OUTPUT:
-    df - dataframe cleaned
+    df(dataframe) - dataframe cleaned
     '''
     # create a dataframe of the 36 individual category columns
     categories = df.categories.str.split(';',expand=True)
@@ -74,6 +74,9 @@ def clean_data(df):
 def save_data(df, database_filename):
     '''
     Save the clean dataset into an sqlite database
+    INPUT:
+    df(dataframe) - the cleaned dataframe
+    database_filename(str) - the name of the stored .db file
     '''
     engine = create_engine('sqlite:///{}'.format(database_filename))
     df.to_sql(database_filename[:-3], engine, index=False, if_exists='replace') 

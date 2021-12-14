@@ -1,9 +1,53 @@
+# import libraries
 import sys
+import re
+import numpy as np
+import pandas as pd
+
+# import sql library
+from sqlalchemy import create_engine
+
+# import nltk libraries
+import nltk
+nltk.download(['punkt', 'wordnet', 'stopwords'])
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+
+# import sci-kit learn libraries
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+
+# import library to save trained model
+import pickle
 
 
 def load_data(database_filepath):
-    pass
+    '''
+    INPUT:
+    database_filepath(str) - the name of the stored .db file
 
+    OUTPUT:
+    X(series) - messages columns, 
+    Y(dataframe) - all list of 36 categories
+    cat_names(list) - names of the categories
+    '''
+    # Create SQL engine with database name
+    engine = create_engine('sqlite:///{}'.format(database_filepath))
+
+    # read table from database
+    df = pd.read_sql_table(database_filepath[:-3], engine)
+
+    # obtain messages and its categories' values and names
+    X = df['message']
+    Y = df.drop(['id','message', 'original','genre'], axis =1)
+    cat_names = Y.columns
+    return X, Y, cat_names
 
 def tokenize(text):
     pass
