@@ -28,7 +28,7 @@ import pickle
 
 
 def load_data(database_filepath):
-    '''
+    '''Function to load data from database
     INPUT:
     database_filepath(str) - the name of the stored .db file
 
@@ -49,21 +49,101 @@ def load_data(database_filepath):
     cat_names = Y.columns
     return X, Y, cat_names
 
+
 def tokenize(text):
-    pass
+    '''Function to clean and tokenize text
+    INPUT:
+    text(str) - text message to be processed
+
+    OUTPUT:
+    clean_tokens(list) - text tokens list
+    '''
+    # check if there are urls within the text
+    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    detected_urls = re.findall(url_regex,text)
+    for url in detected_urls:
+        text = text.replace(url,"urlplaceholder")
+    
+    # remove punctuation
+    text = re.sub(r"[^a-zA-Z0-9]"," ",text)
+    
+    # tokenize the text
+    tokens = word_tokenize(text)
+    
+    # remove stop words
+    tokens = [tok for tok in tokens if tok not in stopwords.words("english")]
+    
+    # Lemmatization
+    lemmatizer = WordNetLemmatizer()
+    
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tokens.append(clean_tok)
+
+    return clean_tokens
 
 
 def build_model():
-    pass
+    '''Function to build ml model pipeline with grid search cross validation
+    INPUT:
+    none
+
+    OUTPUT:
+    pipeline(object) - trained model
+    '''
+    # build pipeline
+    pipeline = Pipeline([
+        ('vect', CountVectorizer(tokenizer=tokenize)),
+        ('tfidf', TfidfTransformer()),
+        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+    ])
+
+    # change parameters set for grid search
+    # parameters = {
+        # 'vect__ngram_range': ((1, 1), (1, 2)),
+        #'clf__estimator__n_estimators': [10, 20],
+        #'clf__estimator__min_samples_split': [2, 4, 6]
+    # }
+
+    # find best model in all gridsearchcv set, could take hours(you may try
+    # parallel computing to improve efficiency)
+    # model = GridSearchCV(pipeline, param_grid=parameters)
+
+    return pipeline
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    pass
+    '''This function evaluates the model performance for each category
+    INPUT:
+    model(object) - 
+    X_test(list) - 
+    Y_test(dataframe) - 
+    category_names(list) - list of category names
 
+    OUTPUT:
+    print out classification report and accuracy score
+    '''
+    # predict with input X_test
+    Y_pred = model.predict(X_test)
+
+    # classification report
+    print(classification_report(Y_test, Y_pred, target_names = category_names))
+
+    # accuracy score
+    accuracy = (Y_pred == Y_test.values).mean()
+    print('The model accuracy score is {:.3f}'.format(accuracy))
 
 def save_model(model, model_filepath):
-    pass
+    '''Function saves the pipeline to local
+    INPUT:
+    model(object) - trained model
+    model_filepath(str) - file path of the model
 
+    OUTPUT:
+    none
+    '''
+    pickle.dump(model, open(model_filepath, 'wb'))
 
 def main():
     if len(sys.argv) == 3:
