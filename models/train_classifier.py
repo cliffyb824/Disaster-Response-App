@@ -1,5 +1,6 @@
 # import libraries
 import sys
+import os
 import re
 import numpy as np
 import pandas as pd
@@ -37,11 +38,14 @@ def load_data(database_filepath):
     Y(dataframe) - all list of 36 categories
     cat_names(list) - names of the categories
     '''
-    # Create SQL engine with database name
+    # create SQL engine with database name
     engine = create_engine('sqlite:///{}'.format(database_filepath))
 
+    # extract table name from database name
+    table_name = os.path.basename(database_filepath).split('.')[0]
+
     # read table from database
-    df = pd.read_sql_table(database_filepath[:-3], engine)
+    df = pd.read_sql_table(table_name, engine)
 
     # obtain messages and its categories' values and names
     X = df['message']
@@ -102,8 +106,8 @@ def build_model():
     # change parameters set for grid search
     # parameters = {
         # 'vect__ngram_range': ((1, 1), (1, 2)),
-        #'clf__estimator__n_estimators': [10, 20],
-        #'clf__estimator__min_samples_split': [2, 4, 6]
+        # 'clf__estimator__n_estimators': [10, 20],
+        # 'clf__estimator__min_samples_split': [2, 4, 6]
     # }
 
     # find best model in all gridsearchcv set, could take hours(you may try
@@ -128,7 +132,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_pred = model.predict(X_test)
 
     # classification report
-    print(classification_report(Y_test, Y_pred, target_names = category_names))
+    print(classification_report(Y_test.values, Y_pred, target_names = category_names))
 
     # accuracy score
     accuracy = (Y_pred == Y_test.values).mean()

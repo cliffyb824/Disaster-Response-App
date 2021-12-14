@@ -1,5 +1,6 @@
 # import libraries
 import sys
+import os
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -13,9 +14,9 @@ def load_data(messages_filepath, categories_filepath):
     df(dataframe) - dataframe of messages table and categories table merged on id
     '''
     # load messages dataset
-    messages = pd.read_csv(messages_filepath, encoding='utf-8')
+    messages = pd.read_csv(messages_filepath)#, encoding='utf-8'
     # load categories dataset
-    categories = pd.read_csv(categories_filepath, encoding='ascii')
+    categories = pd.read_csv(categories_filepath)#, encoding='ascii'
     # merge datasets
     df = pd.merge(messages,categories,on='id',how='outer')
     return df
@@ -72,14 +73,19 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
-    '''
-    Save the clean dataset into an sqlite database
+    '''Function to save the clean dataset into an sqlite database
     INPUT:
     df(dataframe) - the cleaned dataframe
     database_filename(str) - the name of the stored .db file
     '''
+    # create SQL engine with database name
     engine = create_engine('sqlite:///{}'.format(database_filename))
-    df.to_sql(database_filename[:-3], engine, index=False, if_exists='replace') 
+    
+    # extract table name from database name
+    table_name = os.path.basename(database_filename).split('.')[0]
+
+    # save the clean dataset into an sqlite database
+    df.to_sql(table_name, engine, index=False, if_exists='replace') 
 
 def main():
     if len(sys.argv) == 4:
