@@ -18,7 +18,7 @@ def load_data(messages_filepath, categories_filepath):
     # load categories dataset
     categories = pd.read_csv(categories_filepath)#, encoding='ascii'
     # merge datasets
-    df = pd.merge(messages,categories,on='id',how='outer')
+    df = pd.merge(messages,categories,on='id')#,how='inner'
     return df
 
 def clean_data(df):
@@ -54,6 +54,16 @@ def clean_data(df):
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
     # categories.head()
+
+    # check if there are values other than 0 and 1 in categories
+    others = []
+    for col in categories.columns:
+        others.append(categories[col].unique())
+
+    # If there are values other than 0 or 1 in 'categories' columns, replace 
+    # other values as 1
+    for col in categories.columns:
+        categories.loc[(categories[col]!=1)&(categories[col]!=0)] = 1
 
     # drop the original categories column from `df`
     df.drop(columns='categories',inplace=True)

@@ -48,8 +48,8 @@ def load_data(database_filepath):
     df = pd.read_sql_table(table_name, engine)
 
     # obtain messages and its categories' values and names
-    X = df['message']
-    Y = df.drop(['id','message', 'original','genre'], axis =1)
+    X = df['message'].values
+    Y = df[df.columns[4:]]
     cat_names = Y.columns
     return X, Y, cat_names
 
@@ -131,12 +131,15 @@ def evaluate_model(model, X_test, Y_test, category_names):
     # predict with input X_test
     Y_pred = model.predict(X_test)
 
-    # classification report
-    print(classification_report(Y_test.values, Y_pred, target_names = category_names))
-
-    # accuracy score
+    # classification report and accuracy score
+    i = 0
+    for col in Y_test:
+        print('Feature {}:{}'.format(i+1,col))
+        print(classification_report(Y_test[col], Y_pred[:,i], target_names = category_names))
+        i = i + 1
     accuracy = (Y_pred == Y_test.values).mean()
     print('The model accuracy score is {:.3f}'.format(accuracy))
+
 
 def save_model(model, model_filepath):
     '''Function saves the pipeline to local
