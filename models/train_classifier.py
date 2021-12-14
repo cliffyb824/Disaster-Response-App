@@ -117,13 +117,12 @@ def build_model():
     return pipeline
 
 
-def evaluate_model(model, X_test, Y_test, category_names):
+def evaluate_model(model, X_test, Y_test):
     '''This function evaluates the model performance for each category
     INPUT:
-    model(object) - 
-    X_test(list) - 
-    Y_test(dataframe) - 
-    category_names(list) - list of category names
+    model(object) - model to be evaluated
+    X_test(list) - X test dataset
+    Y_test(dataframe) - Y test dataset
 
     OUTPUT:
     print out classification report and accuracy score
@@ -132,11 +131,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
     Y_pred = model.predict(X_test)
 
     # classification report and accuracy score
-    i = 0
-    for col in Y_test:
-        print('Feature {}:{}'.format(i+1,col))
-        print(classification_report(Y_test[col], Y_pred[:,i], target_names = category_names))
-        i = i + 1
+    for i, col in enumerate(Y_test):
+        print('Feature {}:{}'.format(i+1, col))
+        print(classification_report(Y_test[col], Y_pred[:,i]))
     accuracy = (Y_pred == Y_test.values).mean()
     print('The model accuracy score is {:.3f}'.format(accuracy))
 
@@ -166,7 +163,7 @@ def main():
         model.fit(X_train, Y_train)
         
         print('Evaluating model...')
-        evaluate_model(model, X_test, Y_test, category_names)
+        evaluate_model(model, X_test, Y_test)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
         save_model(model, model_filepath)
