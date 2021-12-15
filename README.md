@@ -9,6 +9,7 @@
 - [Licensing, Authors, Acknowledgements](#License)
 
 ## Project Overview <a name="Project-Overview"></a>
+The Disaster Response Pipeline Project is the data engineer project assigned by Udacity data scientist nanodegree.
 
 ## Installation <a name="Installation"></a>
 
