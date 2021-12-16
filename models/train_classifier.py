@@ -127,15 +127,15 @@ def evaluate_model(model, X_test, Y_test):
     OUTPUT:
     print out classification report and accuracy score
     '''
-    # predict with input X_test
-    Y_pred = model.predict(X_test)
+    # predict on the test set
+    Y_test_pred = model.predict(X_test)
 
-    # classification report and accuracy score
-    for i, col in enumerate(Y_test):
-        print('Feature {}:{}'.format(i+1, col))
-        print(classification_report(Y_test[col], Y_pred[:,i]))
-    accuracy = (Y_pred == Y_test.values).mean()
-    print('The model accuracy score is {:.3f}'.format(accuracy))
+    # classification report on test set
+    print(classification_report(Y_test.values, Y_test_pred, target_names=Y.columns.values))
+
+    # Model accuracy score on test set
+    Y_test_accuracy = (Y_test_pred == Y_test).mean()
+    print(Y_test_accuracy)
 
 
 def save_model(model, model_filepath):
