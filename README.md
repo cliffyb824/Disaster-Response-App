@@ -1,25 +1,36 @@
 # Disaster Response Pipeline Project
 
-- [Project Overview](#Project-Overview)
-- [Installation](#Installation)
+- [Description](#Description)
+- [Dependencies](#Dependencies)
 - [Project Components](#Components)
 - [File Descriptions](#File-Descriptions)
 - [Instructions](#How-To-Run-This-Project)
 - [Discussion](#Discussion)
 - [Licensing, Authors, Acknowledgements](#License)
 
-## Project Overview <a name="Project-Overview"></a>
-The Disaster Response Pipeline Project is the data engineer project assigned by Udacity data scientist nanodegree.
+## Description <a name="Description"></a>
 
-## Installation <a name="Installation"></a>
+The Disaster Response Pipeline Project is the data engineer project assigned by Udacity data scientist nanodegree. This project builds a machine learning pipeline to categorize emergency messages based on the needs communicated by the sender. 
+
+## Dependencies <a name="Dependencies"></a>
+
+
 
 ## Project Components <a name="Components"></a>
 
+
+
 ## File Description <a name="File-Descriptions"></a>
+
+
 
 ## Instructions <a name="How-To-Run-This-Project"></a>
 
+
+
 ## Discussion <a name="Discussion"></a>
+
+
 
 ## Licensing, Authors, Acknowledgements <a name="License"></a>
 
