@@ -1,0 +1,1 @@
+web gunicorn disaster-response-nanoapp:app
