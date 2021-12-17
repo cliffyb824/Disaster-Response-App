@@ -65,7 +65,7 @@ The Disaster Response Pipeline Project is the data engineer project assigned by 
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
 
-3. Go to http://0.0.0.0:3001/ go to the website that is showed in your command line.
+3. Go to the website that is showed in your command line, should be something like http://0.0.0.0:3001/ 
 
 
 ## Licensing, Authors, Acknowledgements <a name="License"></a>
