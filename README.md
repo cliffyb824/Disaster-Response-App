@@ -1,7 +1,7 @@
 # **Disaster Response Pipeline Project**
 
 - [Description](#Description)
-- [Dependencies](#Dependencies)
+- [Requirements](#Requirements)
 - [Project Components](#Components)
 - [File Descriptions](#File-Descriptions)
 - [Instructions](#How-To-Run-This-Project)
@@ -11,9 +11,24 @@
 
 The Disaster Response Pipeline Project is the data engineer project assigned by Udacity data scientist nanodegree. This project builds a **Machine Learning Natural Language Processing pipeline** to categorize emergency messages based on the needs communicated by the sender. 
 
-## Dependencies <a name="Dependencies"></a>
+## Requirements <a name="Requirements"></a>
 
-
+    click==8.0.3,
+    colorama==0.4.4,
+    greenlet==1.1.2,
+    joblib==1.1.0
+    nltk==3.6.5
+    numpy==1.21.4
+    pandas==1.3.5
+    python-dateutil==2.8.2
+    pytz==2021.3
+    regex==2021.11.10
+    scikit-learn==1.0.1
+    scipy==1.7.3
+    six==1.16.0
+    SQLAlchemy==1.4.28
+    threadpoolctl==3.0.0
+    tqdm==4.62.3
 
 
 ## Project Components <a name="Components"></a>
