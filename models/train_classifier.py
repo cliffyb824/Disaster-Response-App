@@ -20,7 +20,7 @@ from sklearn.pipeline import Pipeline
 # from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputClassifier
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.metrics import classification_report
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
@@ -100,7 +100,7 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+        ('clf', MultiOutputClassifier(AdaBoostClassifier()))
     ])
 
     # change parameters set for grid search
@@ -131,7 +131,7 @@ def evaluate_model(model, X_test, Y_test):
     Y_test_pred = model.predict(X_test)
 
     # classification report on test set
-    print(classification_report(Y_test.values, Y_test_pred, target_names=Y.columns.values))
+    print(classification_report(Y_test.values, Y_test_pred, target_names=Y_test.columns.values))
 
     # Model accuracy score on test set
     Y_test_accuracy = (Y_test_pred == Y_test).mean()
