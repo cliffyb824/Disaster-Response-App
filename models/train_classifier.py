@@ -2,7 +2,7 @@
 import sys
 import os
 import re
-import numpy as np
+# import numpy as np
 import pandas as pd
 
 # import sql library
@@ -15,9 +15,9 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 
-# import sci-kit learn libraries
+# import scikit-learn libraries
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV
+# from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
