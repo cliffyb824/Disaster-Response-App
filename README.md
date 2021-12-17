@@ -38,9 +38,6 @@ The Disaster Response Pipeline Project is the data engineer project assigned by 
     tqdm==4.62.3
     Werkzeug==2.0.2
 
-
-
-
 ## Project Components <a name="Components"></a>
 
 1. **ETL Pipeline**
