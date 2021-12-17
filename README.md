@@ -1,4 +1,4 @@
-# Disaster Response Pipeline Project
+# **Disaster Response Pipeline Project**
 
 - [Description](#Description)
 - [Dependencies](#Dependencies)
@@ -9,7 +9,7 @@
 
 ## Description <a name="Description"></a>
 
-The Disaster Response Pipeline Project is the data engineer project assigned by Udacity data scientist nanodegree. This project builds a machine learning pipeline to categorize emergency messages based on the needs communicated by the sender. 
+The Disaster Response Pipeline Project is the data engineer project assigned by Udacity data scientist nanodegree. This project builds a **Machine Learning Natural Language Processing pipeline** to categorize emergency messages based on the needs communicated by the sender. 
 
 ## Dependencies <a name="Dependencies"></a>
 
@@ -18,11 +18,19 @@ The Disaster Response Pipeline Project is the data engineer project assigned by 
 
 ## Project Components <a name="Components"></a>
 
-1. ETL Pipeline
-- 
-2. ML Pipeline
-- 
-3. Web Deployment
+1. **ETL Pipeline**
+    1. Disaster_categories.csv and disater_messages.csv is imported as dataframe.
+    2. Perform extract, transform and load to clean the dataset and save the dataset to SQL database.
+2. **ML Pipeline**
+    1. Load dataframe from database.
+    2. Split the dataset into training and testing set.
+    3. Train the model on training set and test the model on testing set, the model first tokenize, normalize, and lemmatize the dataset then apply Random Forest Classifier to do classification.
+    4. Try grid search for best parameters and also try other model(such as Support Vector Machine, Adaboost, kNN, Decision Tree).
+    5. Compare the models by looking at their precision, recall, and accuracy. Choose a model that have relative higher of these attributes.
+    6. Export the model as a pickle file.
+3. **Web Deployment**
+    1. Create a html website and link to Github database
+    2. Deploy app on Heroku so that everyone can view it.
 
 ## File Description <a name="File-Descriptions"></a>
 
@@ -61,7 +69,7 @@ The Disaster Response Pipeline Project is the data engineer project assigned by 
 
 
 ## Licensing, Authors, Acknowledgements <a name="License"></a>
-
+**Licensing**
 Begin license text.
 Copyright <2021> <COPYRIGHT Yuan Qiu>
 
@@ -73,9 +81,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 End license text.
 
+**Authors** [Yuan Qiu](https://github.com/cliffyb824)
 
-```
-|---
-|
-
-```
+**Acknowledgements** Nguyen Pam,
