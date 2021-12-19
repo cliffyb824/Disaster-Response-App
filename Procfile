@@ -1,1 +1,1 @@
-web: gunicorn --chdir app run:app
+web: gunicorn disaster-response-nanoapp:app
