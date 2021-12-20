@@ -1,3 +1,4 @@
+from app import app
 import json
 import plotly
 import pandas as pd
@@ -10,9 +11,6 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
-
-
-app = Flask(__name__)
 
 def tokenize(text):
     tokens = word_tokenize(text)
@@ -90,11 +88,3 @@ def go():
         query=query,
         classification_result=classification_results
     )
-
-
-def main():
-    app.run(host='0.0.0.0', port=3001, debug=True)
-
-
-if __name__ == '__main__':
-    main()
