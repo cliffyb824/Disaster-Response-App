@@ -14,11 +14,11 @@ def load_data(messages_filepath, categories_filepath):
     df(dataframe) - dataframe of messages table and categories table merged on id
     '''
     # load messages dataset
-    messages = pd.read_csv(messages_filepath)#, encoding='utf-8'
+    messages = pd.read_csv(messages_filepath, dtype=str, encoding='utf-8')
     # load categories dataset
-    categories = pd.read_csv(categories_filepath)#, encoding='ascii'
+    categories = pd.read_csv(categories_filepath, dtype=str, encoding='ascii')
     # merge datasets
-    df = pd.merge(messages,categories,on='id')#,how='inner'
+    df = pd.merge(messages,categories, how='inner', on='id')
     return df
 
 def clean_data(df):
