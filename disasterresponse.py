@@ -1,1 +1,0 @@
-from disasterresponseapp import app
