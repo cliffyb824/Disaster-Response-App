@@ -10,7 +10,6 @@ from sqlalchemy import create_engine
 
 # import nltk libraries
 import nltk
-# nltk.data.path.append('./nltk_data/')
 nltk.download(['punkt', 'wordnet', 'stopwords'])
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
