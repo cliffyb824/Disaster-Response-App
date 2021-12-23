@@ -100,7 +100,7 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(RandomForestClassifier()))
+        ('clf', MultiOutputClassifier(RandomForestClassifier(max_depth=6)))
     ])
 
     # change parameters set for grid search
@@ -147,9 +147,8 @@ def save_model(model, model_filepath):
     OUTPUT:
     none
     '''
-    file = open(model_filepath, 'wb')
-    pickle.dump(model, file)
-    file.close()
+    with open(model_filepath, 'wb') as f:
+        pickle.dump(model, f)
 
 def main():
     if len(sys.argv) == 3:
