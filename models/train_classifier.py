@@ -100,14 +100,14 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(AdaBoostClassifier()))
+        ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
 
     # change parameters set for grid search
     parameters = {
         'vect__ngram_range': ((1, 1), (1, 2)),
-        'clf__estimator__n_estimators': [10, 20],
-        'clf__estimator__min_samples_split': [2, 4, 6]
+        #'clf__estimator__n_estimators': [10, 20],
+        #'clf__estimator__min_samples_split': [2, 4, 6]
     }
 
     # find best model in all gridsearchcv set, could take hours(you may try
