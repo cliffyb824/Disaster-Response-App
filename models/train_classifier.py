@@ -147,7 +147,9 @@ def save_model(model, model_filepath):
     OUTPUT:
     none
     '''
-    pickle.dump(model, open(model_filepath, 'wb'))
+    file = open(model_filepath, 'wb')
+    pickle.dump(model, file)
+    file.close()
 
 def main():
     if len(sys.argv) == 3:
