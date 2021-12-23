@@ -17,7 +17,7 @@ from nltk.corpus import stopwords
 
 # import scikit-learn libraries
 from sklearn.pipeline import Pipeline
-# from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
@@ -104,15 +104,15 @@ def build_model():
     ])
 
     # change parameters set for grid search
-    # parameters = {
-        # 'vect__ngram_range': ((1, 1), (1, 2)),
-        # 'clf__estimator__n_estimators': [10, 20],
-        # 'clf__estimator__min_samples_split': [2, 4, 6]
-    # }
+    parameters = {
+        'vect__ngram_range': ((1, 1), (1, 2)),
+        'clf__estimator__n_estimators': [10, 20],
+        'clf__estimator__min_samples_split': [2, 4, 6]
+    }
 
     # find best model in all gridsearchcv set, could take hours(you may try
     # parallel computing to improve efficiency)
-    # model = GridSearchCV(pipeline, param_grid=parameters)
+    model = GridSearchCV(pipeline, param_grid=parameters)
 
     return pipeline
 
