@@ -1,52 +1,39 @@
-import re 
-from nltk.corpus import stopwords
+# import libraries
+import re
+
 from nltk.tokenize import word_tokenize
-from nltk.stem.wordnet import WordNetLemmatizer
-import pandas as pd
-from sklearn.base import BaseEstimator, TransformerMixin
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 
-class Tokenizer(BaseEstimator, TransformerMixin):
-    def __init__(self):
-        pass
+def tokenize(text):
+    '''Function to clean and tokenize text
+    INPUT:
+    text(str) - text message to be processed
 
-    def fit(self, X, y=None):
-        return self
+    OUTPUT:
+    clean_tokens(list) - text tokens list
+    '''
+    # check if there are urls within the text
+    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    detected_urls = re.findall(url_regex,text)
+    for url in detected_urls:
+        text = text.replace(url,"urlplaceholder")
+    
+    # remove punctuation
+    text = re.sub(r"[^a-zA-Z0-9]"," ",text)
+    
+    # tokenize the text
+    tokens = word_tokenize(text)
+    
+    # remove stop words
+    tokens = [tok for tok in tokens if tok not in stopwords.words("english")]
+    
+    # Lemmatization
+    lemmatizer = WordNetLemmatizer()
+    
+    clean_tokens = []
+    for tok in tokens:
+        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+        clean_tokens.append(clean_tok)
 
-    def transform(self, X):
-        def tokenize(text):
-            """
-                Tokenize the message into word level features. 
-                1. replace urls
-                2. convert to lower cases
-                3. remove stopwords
-                4. strip white spaces
-            Args: 
-                text: input text messages
-            Returns: 
-                cleaned tokens(List)
-            """   
-            # Define url pattern
-            url_re = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\), ]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
-
-            # Detect and replace urls
-            detected_urls = re.findall(url_re, text)
-            for url in detected_urls:
-                text = text.replace(url, "urlplaceholder")
-
-            # remove punctuation
-            text = re.sub(r"[^a-zA-Z0-9]"," ",text)
-
-            # tokenize sentences
-            tokens = word_tokenize(text)
-            lemmatizer = WordNetLemmatizer()
-
-            # save cleaned tokens
-            clean_tokens = [lemmatizer.lemmatize(tok).lower().strip() for tok in tokens]
-
-            # remove stopwords
-            STOPWORDS = list(set(stopwords.words('english')))
-            clean_tokens = [token for token in clean_tokens if token not in STOPWORDS]
-
-            return ' '.join(clean_tokens)
-
-        return pd.Series(X).apply(tokenize).values
+    return clean_tokens
