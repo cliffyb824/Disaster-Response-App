@@ -12,16 +12,18 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
+from utils.tokenizer_function import tokenize
 
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
+# def tokenize(text):
+#     tokens = word_tokenize(text)
+#     lemmatizer = WordNetLemmatizer()
 
-    return clean_tokens
+#     clean_tokens = []
+#     for tok in tokens:
+#         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+#         clean_tokens.append(clean_tok)
+
+#     return clean_tokens
 
 # load data
 engine = create_engine('sqlite:///data/DisasterResponse.db')
