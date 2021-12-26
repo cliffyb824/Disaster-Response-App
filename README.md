@@ -4,7 +4,9 @@
 - [Requirements](#Requirements)
 - [Project Components](#Components)
 - [File Descriptions](#File-Descriptions)
+- [More Details](#Details)
 - [Instructions](#How-To-Run-This-Project)
+- [Screenshots](#Screenshots)
 - [Licensing, Authors, Acknowledgements](#License)
 
 ## Description <a name="Description"></a>
@@ -75,6 +77,32 @@ The Disaster Response Pipeline Project is the data engineer project assigned by 
 *Files that will be generated when the python scripts .py are executed.
 ```
 
+## More Details <a name="Details"></a>
+It might also be a good idea to include more details about the project, such as how the the dataset formatted, the size of the dataset, how you cleaned the data, what models were tried etc.
+
+The dataset `disaster_categories.csv` is a (26249 x 2) table that have columns: `id`,`categories`, while in `categories` column there are 36 categories that need to be split into 36 columns as output.
+
+The dataset `disaster_messages.csv` is a (26249 x 4) table that have columns: `id`, `message`, `original`, `genre`, where `message` is used as an input.
+
+The merged dataset is a table (26249 x 37) like: `message`,`categories1`,`categories2`,...,`categories36`.
+
+The data cleaning steps:
+1. Convert category values to just numbers 0 or 1.
+2. Check if there are values other than 0 and 1 in categories.
+3. If there are values other than 0 or 1 in `categories` columns, replace other values as 1
+4. Drop duplicates.
+5. Save to sql database.
+
+The ML steps:
+1. Clean text: remove punctuation, tokenize the text, remove stop words, Lemmatization.
+2. Build nltk random forest pipeline.
+3. Use GridSearchCV for best model (use low forest depth for try, since calculation takes hours).
+4. save model to pickle file.
+
+The web deployment steps:
+1. Use web heroku to deploy app
+2. Add Procfile, requirement.txt, runtime.txt, ntlk.txt
+
 ## Instructions <a name="How-To-Run-This-Project"></a>
 
 1. Run the following commands in the project's root directory to set up your database and model.
@@ -89,6 +117,8 @@ The Disaster Response Pipeline Project is the data engineer project assigned by 
 
 3. Go to the website that is showed in your command line, should be something like http://0.0.0.0:3001/ 
 
+## Screenshots <a name="Screenshots"></a>
+![Main screen](/imgs/img.jpg?raw=true "Optional Title")
 
 ## Licensing, Authors, Acknowledgements <a name="License"></a>
 **Licensing**
