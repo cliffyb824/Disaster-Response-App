@@ -27,7 +27,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 # import library to save trained model
 import pickle
 
-from utils.tokenizer_function import tokenize
+from tokenizer_function import tokenize
 
 
 def load_data(database_filepath):
