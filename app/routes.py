@@ -12,7 +12,7 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 
-from utils.tokenizer_function import tokenize
+from tokenizer_function import tokenize
 
 # def tokenize(text):
 #     tokens = word_tokenize(text)
