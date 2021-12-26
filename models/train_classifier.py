@@ -27,6 +27,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 # import library to save trained model
 import pickle
 
+from utils.tokenizer_function import tokenize
+
 
 def load_data(database_filepath):
     '''Function to load data from database
@@ -54,38 +56,38 @@ def load_data(database_filepath):
     return X, Y, cat_names
 
 
-def tokenize(text):
-    '''Function to clean and tokenize text
-    INPUT:
-    text(str) - text message to be processed
+# def tokenize(text):
+#     '''Function to clean and tokenize text
+#     INPUT:
+#     text(str) - text message to be processed
 
-    OUTPUT:
-    clean_tokens(list) - text tokens list
-    '''
-    # check if there are urls within the text
-    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
-    detected_urls = re.findall(url_regex,text)
-    for url in detected_urls:
-        text = text.replace(url,"urlplaceholder")
+#     OUTPUT:
+#     clean_tokens(list) - text tokens list
+#     '''
+#     # check if there are urls within the text
+#     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+#     detected_urls = re.findall(url_regex,text)
+#     for url in detected_urls:
+#         text = text.replace(url,"urlplaceholder")
     
-    # remove punctuation
-    text = re.sub(r"[^a-zA-Z0-9]"," ",text)
+#     # remove punctuation
+#     text = re.sub(r"[^a-zA-Z0-9]"," ",text)
     
-    # tokenize the text
-    tokens = word_tokenize(text)
+#     # tokenize the text
+#     tokens = word_tokenize(text)
     
-    # remove stop words
-    tokens = [tok for tok in tokens if tok not in stopwords.words("english")]
+#     # remove stop words
+#     tokens = [tok for tok in tokens if tok not in stopwords.words("english")]
     
-    # Lemmatization
-    lemmatizer = WordNetLemmatizer()
+#     # Lemmatization
+#     lemmatizer = WordNetLemmatizer()
     
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
+#     clean_tokens = []
+#     for tok in tokens:
+#         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+#         clean_tokens.append(clean_tok)
 
-    return clean_tokens
+#     return clean_tokens
 
 
 def build_model():
@@ -103,16 +105,16 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier(max_depth=6)))
     ])
 
-    # change parameters set for grid search
-    parameters = {
-        'vect__ngram_range': ((1, 1), (1, 2)),
-        #'clf__estimator__n_estimators': [10, 20],
-        #'clf__estimator__min_samples_split': [2, 4, 6]
-    }
+    # # change parameters set for grid search
+    # parameters = {
+    #     'vect__ngram_range': ((1, 1), (1, 2)),
+    #     'clf__estimator__n_estimators': [10, 20],
+    #     'clf__estimator__min_samples_split': [2, 4, 6]
+    # }
 
-    # find best model in all gridsearchcv set, could take hours(you may try
-    # parallel computing to improve efficiency)
-    model = GridSearchCV(pipeline, param_grid=parameters)
+    # # find best model in all gridsearchcv set, could take hours(you may try
+    # # parallel computing to improve efficiency)
+    # model = GridSearchCV(pipeline, param_grid=parameters)
 
     return pipeline
 
