@@ -1,4 +1,5 @@
 import sys
+from app import app
 import json
 import plotly
 import pandas as pd
@@ -12,42 +13,17 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 
-# import NLP libraries
+
+
 sys.path.insert(0, '/Users/qycli/Dropbox/vscode/disaster-response-app/')
 from tokenizer_function import tokenize
 
+# load data
+engine = create_engine('sqlite:///data/DisasterResponse.db')
+df = pd.read_sql_table('DisasterResponse', engine)
 
-app = Flask(__name__)
-
-#def tokenize(text):
-#    tokens = word_tokenize(text)
-#    lemmatizer = WordNetLemmatizer()
-#
-#    clean_tokens = []
-#    for tok in tokens:
-#        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-#        clean_tokens.append(clean_tok)
-#
-#    return clean_tokens
-
-#load data
-#engine = create_engine('sqlite:///../data/DisasterResponse.db')
-#df = pd.read_sql_table('DisasterResponse', engine)
-
-#load model
-#model = joblib.load("../models/classifier.pkl")
-
-@app.before_first_request
-def load_model_data():
-    global df
-    global model
-
-    # load data
-    engine = create_engine('sqlite:///data/DisasterResponse.db')
-    df = pd.read_sql_table('DisasterResponse', engine)
-
-    # load model
-    model = joblib.load("models/classifier.pkl")
+# load model
+model = joblib.load('models/classifier.pkl')
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
@@ -106,11 +82,3 @@ def go():
         query=query,
         classification_result=classification_results
     )
-
-
-def main():
-    app.run(host='0.0.0.0', port=3001, debug=True)
-
-
-if __name__ == '__main__':
-    main()
