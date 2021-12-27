@@ -14,10 +14,13 @@ ENV/
 env.bak/
 venv.bak/
 
-# Ignore pickles
 models/classifier.pkl
+
 *.pkl
+
 **/*.pkl
 
 
 **/*.csv
+
+__pycache__

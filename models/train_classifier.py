@@ -27,6 +27,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 # import library to save trained model
 import pickle
 
+sys.path.insert(0, '/Users/qycli/Dropbox/vscode/disaster-response-app/')
 from tokenizer_function import tokenize
 
 
