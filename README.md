@@ -118,7 +118,7 @@ The web deployment steps:
 3. Go to the website that is showed in your command line, should be something like http://0.0.0.0:3001/ 
 
 ## Screenshots <a name="Screenshots"></a>
-![Main screen](/imgs/img.jpg?raw=true "Optional Title")
+![Screen Shot](imgs/img1.png?raw=true)
 
 ## Licensing, Authors, Acknowledgements <a name="License"></a>
 **Licensing**
