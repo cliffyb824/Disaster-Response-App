@@ -1,5 +1,4 @@
 import sys
-from app import app
 import json
 import plotly
 import pandas as pd
@@ -13,7 +12,7 @@ from plotly.graph_objs import Bar
 import joblib
 from sqlalchemy import create_engine
 
-
+from myapp import app
 
 sys.path.insert(0, '/Users/qycli/Dropbox/vscode/disaster-response-app/')
 from tokenizer_function import tokenize
