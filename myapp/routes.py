@@ -8,7 +8,7 @@ import pandas as pd
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Pie
 import joblib
 from sqlalchemy import create_engine
 
@@ -34,11 +34,14 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
+    flood_labels=['no flood', 'flood']
+    flood_values=list(df.groupby('floods').count()['message'])
 
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
+    storm_labels = ['no storm', 'storm']
+    storm_values = list(df.groupby('storm').count()['message'])
+
+    earthquake_labels = ['no earthquake', 'earthquake']
+    earthquake_values = list(df.groupby('earthquake').count()['message'])
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -64,38 +67,57 @@ def index():
 
         {
             'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
+                Pie(
+                    labels=flood_labels,
+                    values=flood_values,
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Distribution of Message contain floods',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Floods"
                 }
             }
         },
 
         {
             'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
+                Pie(
+                    labels=storm_labels,
+                    values=storm_values,
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Distribution of Message contain floods',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Floods"
+                }
+            }
+        },
+
+        {
+            'data': [
+                Pie(
+                    labels=earthquake_labels,
+                    values=earthquake_values,
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message contain floods',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Floods"
                 }
             }
         }
