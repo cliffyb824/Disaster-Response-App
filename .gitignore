@@ -16,9 +16,9 @@ venv.bak/
 
 models/classifier.pkl
 
-*.pkl
+#*.pkl
 
-**/*.pkl
+#**/*.pkl
 
 
 **/*.csv
