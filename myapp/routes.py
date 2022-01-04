@@ -3,8 +3,8 @@ import json
 import plotly
 import pandas as pd
 
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+# from nltk.stem import WordNetLemmatizer
+# from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
@@ -14,8 +14,8 @@ from sqlalchemy import create_engine
 
 from myapp import app
 
-sys.path.insert(0, '/Users/qycli/Dropbox/vscode/disaster-response-app/')
-from tokenizer_function import tokenize
+# sys.path.insert(0, '/Users/qycli/Dropbox/vscode/disaster-response-app/')
+# from tokenizer_function import tokenize
 
 # load data
 engine = create_engine('sqlite:///data/DisasterResponse.db')
