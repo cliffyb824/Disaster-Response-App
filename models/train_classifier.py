@@ -105,18 +105,18 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier(max_depth=6)))
     ])
 
-    # # change parameters set for grid search
-    # parameters = {
-    #     'vect__ngram_range': ((1, 1), (1, 2)),
-    #     'clf__estimator__n_estimators': [10, 20],
-    #     'clf__estimator__min_samples_split': [2, 4, 6]
-    # }
+    # change parameters set for grid search
+    parameters = {
+        # 'vect__ngram_range': ((1, 1), (1, 2)),
+        'clf__estimator__n_estimators': [10, 20],
+        # 'clf__estimator__min_samples_split': [2, 4, 6]
+    }
 
-    # # find best model in all gridsearchcv set, could take hours(you may try
-    # # parallel computing to improve efficiency)
-    # model = GridSearchCV(pipeline, param_grid=parameters)
+    # find best model in all gridsearchcv set, could take hours(you may try
+    # parallel computing to improve efficiency)
+    model = GridSearchCV(pipeline, param_grid=parameters,verbose=3)
 
-    return pipeline
+    return model
 
 
 def evaluate_model(model, X_test, Y_test):
