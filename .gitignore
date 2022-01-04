@@ -24,3 +24,5 @@ venv.bak/
 **/*.csv
 
 __pycache__
+
+.DS_store
